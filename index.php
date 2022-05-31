@@ -11,19 +11,46 @@
 </html>
 
 <?php
-include_once "./conexao.php";
+require_once './class/Pessoa.php';
 
 try {
-    $nome = 'f';
-    $query = $conexao -> prepare("SELECT * from pessoa "
-            . "WHERE tbl_pessoa_nome like ?");
-    $query ->bindValue(1, $nome . '%');
-    $query -> execute();
+    $query = Pessoa::getPessoa();
     while($registro = $query -> fetch()) {
-        echo $registro['tbl_pessoa_nome'] . '<br>';
+        echo $registro['nome'] . '<br>';
     }
     
 } catch(PDOException $e) {
     echo 'Erro ao conectar: ' . $e -> getMessage();
 }
+
+//include_once "./class/DataBase.php";
+//
+//try {
+//    $db = new DataBase();
+//    $query = $db -> BancoLink -> query("SELECT * from pessoa");
+//    while($registro = $query -> fetch()) {
+//        echo $registro['nome'] . '<br>';
+//    }
+//    
+//} catch(PDOException $e) {
+//    echo 'Erro ao conectar: ' . $e -> getMessage();
+//}
+
+
+// antigo
+//include_once "./conexao.php";
+//
+//try {
+//    $nome = 'f';
+//    $query = $conexao -> prepare("SELECT * from pessoa "
+//            . "WHERE tbl_pessoa_nome like ?");
+//    $query ->bindValue(1, $nome . '%');
+//    $query -> execute();
+//    while($registro = $query -> fetch()) {
+//        echo $registro['tbl_pessoa_nome'] . '<br>';
+//    }
+//    
+//} catch(PDOException $e) {
+//    echo 'Erro ao conectar: ' . $e -> getMessage();
+//}
 ?>
