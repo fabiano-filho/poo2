@@ -3,7 +3,7 @@ include_once './db/DataBase.php';
 
 class Pessoa {
     
-    public static function getPessoa() {
+    public static function getPessoas() {
         $db = new DataBase();
         return $db -> query("SELECT * from pessoa");
     }
