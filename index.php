@@ -1,61 +1,64 @@
 <?php
 require_once 'class/Livro.php';
 require_once 'class/Pessoa.php';
+
+if (isset($_GET["CodExclui"])) {
+  $CodLivro=$_GET["CodExclui"];
+  $delete = Livro::Delete($CodLivro); 
+  echo "<script>alert('Livro Apagado com Sucesso');</script>";
+}
+
+$getLivros = Livro::getLivros();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        
-        <meta charset="UTF-8">
-        <title>Programação Orientada a Objetos II - PHP</title>
-    </head>
-    <body>
-        <table border="1">
-            <tr>
-                <th>Cod_livro</th>
-                <th>cod_pessoa_emprestimo</th>
-                <th>titulo_livro</th>
-                <th>autor_livro</th>
-                <th>ind_emprestimo</th>
-            </tr>
-            
-        <?php
-            $query = Livro::getLivros();
-            while($registro = $query -> fetch()){?>
-            <tr>
-                <td><?php echo $registro['Id'];?></td>
-                <td> 
-                    <?php
-                        if(!$registro['ind_emprestimo']) {
-                            echo '';
-                        }else {
-                            echo $registro['cod_pessoa_emprestimo'];
-                        }
-                         
-                    ?>   
-                </td>
-                <td><?php echo $registro['titulo_livro'];?></td>
-                <td><?php echo $registro['autor_livro'];?></td>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 3</title>
+</head>
+<body>   
+
+<article>
+        <h3>LIVROS</h3>
+        <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>TITULO</th>
+                <th>AUTOR</th>
+                <th>ISBN</th>
+                <th>EDITORA</th>
+                <th>QTD_PAGINAS</th>
+                <th>Excluir</th>
+                </tr>
+            </thead>
+            <?php
+                while ($row = $getLivros->fetch()) {
+                ?>
+            <tbody>
+                <tr>
+                <td><?php echo($row["cod_livro"]); ?></td>
+                <td><?php echo ($row["titulo_livro"]); ?></td>
+                <td><?php echo($row["autor_livro"]); ?></td>
+                <td><?php echo($row["cod_isbn"]); ?></td>
+                <td><?php echo($row["nome_editora"]); ?></td>
+                <td><?php echo($row["qtd_paginas"]); ?></td>
                 <td>
-                    <?php 
-                        if($registro['ind_emprestimo']){
-                            echo "Disponível - "; ?>
-                            <a href="emprestar.php?codLivro=<?php echo $registro['Id'];?>">
-                                Emprestar
-                            </a>
-                    <?php    
-                        }else {
-                            echo "Indisponível - Pessoa - "; ?>
-                            <a href="devolver.php">Devolver</a>
-                    <?php    
-                        }
-                    ?>          
+                    <a href="index.php?CodExclui=<?php echo($row["cod_livro"]); ?>">Excluir</a>
                 </td>
-            </tr>
+                </tr>
+            </tbody>
         <?php
-            }
-        ?>        
-        </table>    
-    </body>
+            } ?>
+        </table>
+        <button>
+        <a href="form_cadastro.php">Cadastrar</a>
+        </button>
+</article> 
+
+
+</body>
 </html>

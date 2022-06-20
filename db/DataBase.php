@@ -28,8 +28,25 @@ class DataBase {
         return $this -> BancoLink -> query($sql);
     }
 
-    public function SqlDml($sql) {
+    public function sqlDml($sql) {
         return $this -> BancoLink -> exec($sql);
     }
+
+    public static function beginTransaction($sql){
+        $db = new DataBase();
+        $db -> BancoLink -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db -> BancoLink -> beginTransaction();
+        return $db;
+    }
+
+    public function commit(){
+        $this -> BancoLink -> commit();
+    }
+
+    public function rollBack(){
+        $this -> BancoLink -> rollBack();
+    }
+
 }
+
 ?>

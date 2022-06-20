@@ -5,5 +5,5 @@ define('SERVIDOR', 'localhost');
 define('USUARIO', 'root');
 // define('SENHA', ''); CASA
 define('SENHA', 'admin'); 
-define('BANCODEDADOS', 'poo2 - dojo');
+define('BANCODEDADOS', 'poo2');
 
